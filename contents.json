@@ -1,10 +1,40 @@
 {
-    "exams":{
-        "001":{
-            "title":"タイトル",
-            "subjevtName":"科目名",
+    "exams":[
+        {
+            "title":"令和5年 情報セキュリティ 期末試験",
+            "subjevtName":"情報セキュリティ",
             "postedUser":"taro",
-            "postedAt":"2023年 4月 6日"
+            "postedAt":"2023/4/6"
+        },
+        {
+            "title":"令和3年 応用数学I 期末試験",
+            "subjevtName":"応用数学",
+            "postedUser":"taro",
+            "postedAt":"2023/4/6"
+        },
+        {
+            "title":"令和5年 情報セキュリティ 期末試験",
+            "subjevtName":"情報セキュリティ",
+            "postedUser":"taro",
+            "postedAt":"2023/4/6"
+        },
+        {
+            "title":"令和3年 応用数学I 期末試験",
+            "subjevtName":"応用数学",
+            "postedUser":"taro",
+            "postedAt":"2023/4/6"
+        },
+        {
+            "title":"令和5年 情報セキュリティ 期末試験",
+            "subjevtName":"情報セキュリティ",
+            "postedUser":"taro",
+            "postedAt":"2023/4/6"
+        },
+        {
+            "title":"令和3年 応用数学I 期末試験",
+            "subjevtName":"応用数学",
+            "postedUser":"taro",
+            "postedAt":"2023/4/6"
         }
-    }
+    ]
 }
