@@ -10,10 +10,9 @@ export const Home = () => {
             <div className="flex">
                 <SideBar/>
             <article className="h-screen flex-1 bg-indigo-50">
-                <h1 className="text-borld text-xl p-2">Home</h1>
                 <div>
                     <form>
-                        <div className="relative m-5">
+                        <div className="relative mx-5 my-10">
                         <input className="text-center block p-3 w-full z-20 rounded-2xl" placeholder="Search subjectname..." required/>
                         <button className="absolute top-0 right-0 p-3 pl-4 text-white bg-indigo-500 border border-indigo-500 hover:bg-indigo-800 rounded-r-2xl ">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 26 26" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -24,7 +23,7 @@ export const Home = () => {
                     </form>
                 </div>
                 <div>
-                    <main className="mt-10">
+                    <main className="mt-16">
                         <div className="flex">
                             <p className="ml-5">過去問一覧</p>
                             <p className="ml-auto mr-4">Sort</p>
@@ -33,7 +32,7 @@ export const Home = () => {
                                     <option>昇順</option>
                                 </select>
                         </div>
-                        <div className="my-4 overflow-y-scroll h-96">
+                        <div className="my-6 py-2 overflow-y-scroll h-96">
                             {examList.map((exam, i) =>
                                 <div className="m-5 p-2 bg-white border border-gray-300 rounded-xl hover:border-indigo-500" key={i}>
                                     <div className="z-20 flex">
@@ -60,6 +59,9 @@ export const Home = () => {
                             )}
                         </div>
                     </main>
+                    <div className="mx-4">
+                        <button>次へ</button>
+                    </div>
                 </div>
             </article>
             </div>
