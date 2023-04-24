@@ -1,5 +1,7 @@
 import SideBar from "@/components/sideBar";
 import contentList from "../../contents.json";
+import { ReactElement } from "react";
+import UserGuard from "@/guards/userGuasd";
 
 export const Home = () => {
 
@@ -7,8 +9,6 @@ export const Home = () => {
 
     return (
         <>
-            <div className="flex">
-                <SideBar/>
             <article className="h-screen flex-1 bg-indigo-50">
                 <div>
                     <form>
@@ -64,8 +64,17 @@ export const Home = () => {
                     </div>
                 </div>
             </article>
-            </div>
         </>
+    )
+}
+
+Home.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <UserGuard>
+            <div className="flex">
+                <SideBar/>{page}
+            </div>
+        </UserGuard>
     )
 }
 

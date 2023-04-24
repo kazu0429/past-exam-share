@@ -3,6 +3,7 @@ import Link from "next/link";
 import { auth } from "@/firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
+import { useRouter } from "next/router";
 
 export const Signup = () => {
     const [email, setEmail] = useState<string>("");
@@ -10,7 +11,7 @@ export const Signup = () => {
     const [confirmationPassword, setComfirmatinPassword] = useState<string>("");
     const [isCorrect, setIsCorrect] = useState<boolean>(false);
     const [signup, setSignup] = useState<boolean>(false);
-
+    const router = useRouter();
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,6 +26,7 @@ export const Signup = () => {
                     email,
                     password
                 )
+                router.push("/home");
                 setEmail('');
                 setPassword('');
             }catch(err){
@@ -54,9 +56,9 @@ export const Signup = () => {
                 <h1 className="text-2xl mb-4 flex justify-center relative">Sign Up</h1>
                 <div>
                     <form className="flex flex-col gap-y-6 px-5 py-3" onSubmit={handleSubmit}>
-                        <input type="text" placeholder="Email" className="text-sm  px-4 py-3 rounded-lg bg-gray-200 focus:bg-gray-100 border border-gray-200" onChange={(e) => setEmail(e.target.value)}/>
-                        <input type="password" placeholder="Password" className="text-sm  px-4 py-3 rounded-lg bg-gray-200 focus:bg-gray-100 border border-gray-200" onChange={(e) => setPassword(e.target.value)}/>
-                        <input type="password" placeholder="Confirmation Password" className="text-sm  px-4 py-3 rounded-lg bg-gray-200 focus:bg-gray-100 border border-gray-200" onChange={(e) => setComfirmatinPassword(e.target.value)}/>
+                        <input type="text" placeholder="Email" className="input_field" onChange={(e) => setEmail(e.target.value)}/>
+                        <input type="password" placeholder="Password" className="input_field" onChange={(e) => setPassword(e.target.value)}/>
+                        <input type="password" placeholder="Confirmation Password" className="input_field" onChange={(e) => setComfirmatinPassword(e.target.value)}/>
                         <button type="submit" className="p-2 text-white bg-indigo-500 rounded-lg border border-indigo-600 hover:bg-indigo-400 ">Sign up</button>
                         {signup && !isCorrect &&<p>間違っているよ</p>}
                     </form><hr/>
