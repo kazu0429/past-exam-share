@@ -29,7 +29,7 @@ export const Signin = () => {
         <>
         <div className="h-screen w-screen flex flex-col justify-center items-center">
             <main className="h-96 lg:w-1/4 md:w-1/3 sm:w-2/5 m-10 px-5 py-3 rounded-2xl relative border border-gray-200">
-                <h1 className="text-2xl mb-4 flex justify-center relative">Sign In</h1>
+                <h1 className="text-2xl mb-4 flex justify-center relative">Sign In!</h1>
                 <div>
                     <form className="flex flex-col gap-y-6 px-5 py-3" onSubmit={handleSubmit}>
                         <input type="text" placeholder="Email" className="input_field" onChange={(e) => setEmail(e.target.value)} required/>
