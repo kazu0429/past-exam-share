@@ -1,0 +1,13 @@
+{
+    "book":{
+        "book_img_link" : "/pic.jpg",
+        "book_title": "UX Desiner, GooglePay",
+        "book_author" : "Google Inc., Shanghai China", 
+        "headline1" : "Minimum qulifications.",
+        "content1" : "Bachelor's degree in Design, related field, or equvalent practical experience.",
+        "headline2" : "Prefferd qualifications.",
+        "content2" : "Strong collaboration and presentation skills.",
+        "detail_explanation_title" : "About the job",
+        "detail_explanation_content" : "At Google, we follow a simple but vital premise: Focus on th user and all ..."
+    }
+}

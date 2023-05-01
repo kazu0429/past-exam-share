@@ -1,10 +1,15 @@
 import Image from 'next/image'
 // import styles from '@/styles/Home.module.css'
 import { Stint_Ultra_Condensed } from 'next/font/google'
-export default function Detail(props:any) {
+import SideBar from '@/components/sideBar'
+import { ReactElement } from 'react'
+import { useRouter } from 'next/router'
+export default function Detail() {
 
   const ptag = "font-normal text-gray-700 dark:text-gray-400 pb-7"
   const h3tag = "font-bold h3tag "
+  const router  = useRouter();
+  const props = router.query;
     return (
       // <style jsx>{`
       //   p {
@@ -17,33 +22,33 @@ export default function Detail(props:any) {
           <div className='text-center'>
             <Image
               className='flex  mx-auto mt-10'
-              src={props.book.book_img_link}
+              src={props.book_img_link as string}
               alt="Next.js Logo"
               width={150}
               height={150}
               // priority
             />
           
-              <h1 className='font-bold text-blue-800 text-4xl pt-6 pb-2'>{props.book.book_title}</h1>
-              <p className='font-normal text-gray-800 pb-8'>{props.book.book_author}</p>
+              <h1 className='font-bold text-blue-800 text-4xl pt-6 pb-2'>{props.book_title}</h1>
+              <p className='font-normal text-gray-800 pb-8'>{props.book_author}</p>
            
           </div>
              
 
           <div>
-            <h3 className={h3tag}>{props.book.headline1}</h3>
-            <p className={ptag}>{props.book.content1}</p>
+            <h3 className={h3tag}>{props.headline1}</h3>
+            <p className={ptag}>{props.content1}</p>
           </div>
           
           <div>
-          <h3 className={h3tag}>{props.book.headline2}</h3>
-            <p className={ptag}>{props.book.content2}</p>
+          <h3 className={h3tag}>{props.headline2}</h3>
+            <p className={ptag}>{props.content2}</p>
           </div>
 
 
           <div>
-            <h3 className={h3tag}>{props.book.detail_explanation_title}</h3>
-            <p className={ptag}>{props.book.detail_explanation_content}</p>
+            <h3 className={h3tag}>{props.detail_explanation_title}</h3>
+            <p className={ptag}>{props.detail_explanation_content}</p>
           </div>
         
         </div>
@@ -51,7 +56,15 @@ export default function Detail(props:any) {
     )
 }
 
-
+Detail.getLayout = function getLayout(page: ReactElement) {
+  return (
+      // <UserGuard>
+          <div className="flex">
+              <SideBar/>{page}
+          </div>
+      // </UserGuard>
+  )
+}
 // 以下のようなフォーマットでデータを受け取る予定
 // {
     
