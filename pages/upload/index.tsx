@@ -1,7 +1,15 @@
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, FormEvent } from "react";
 import SideBar from "@/components/sideBar";
+import { useAuth } from "@/context/AuthContext";
+import { Exam } from "@/types/exam";
+import { User } from "@/types/user";
+import { doc, addDoc, setDoc, updateDoc, collection, serverTimestamp, arrayUnion} from "firebase/firestore";
+import { db, storage } from "@/firebase/firebase";
+import { ref, uploadBytesResumable } from "firebase/storage";
 
 export const PostExam = () => {
+
+    const user = useAuth() as User;
     
     const faculty_list = ["共通教育","法文学部","教育学部","医学部医学科","医学部保健学科","理学部","歯学部","工学部","農学部","水産学部","獣医学部"];
     
@@ -9,21 +17,90 @@ export const PostExam = () => {
     const [subjectName, setSubjectName] = useState<string>("");
     const [faculty, setFaclty] = useState<string>("共通教育");
     const [discription, setDiscription] = useState<string>("");
-    const [fielType, setFileType] = useState<string>("pdf");
+    const [fielType, setFileType] = useState<string>(".pdf");
     const [images, setImages] = useState<Array<File>>([]);
     const [pdf, setPDF] = useState<File>();
 
-    const UploadExam = () => {
+    const [loading, setLoading] = useState<boolean>(false);
 
+    const UploadExam = async(event:FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const uploadContent: Exam = {
+            titie: titel,
+            faculty: faculty,
+            subjectName: subjectName,
+            discription: discription,
+            fileType: fielType,
+            images: images?.map((elm) => (elm.name)),
+            pdf: pdf?.name,
+            postedAt: Date.now(),
+            postedTimestamp: serverTimestamp(),
+            editedAt: Date.now(),
+            editedTimestamp: serverTimestamp(),
+            createUserid: user.id,
+            editableUserid: [user.id],
+        } 
+
+        try{
+            const addContentRef = collection(db, 'exams');
+            const addContent = await addDoc(addContentRef, uploadContent); // firestoreに登録
+            const examid = addContent.id;
+            if(fielType === '.pdf'){
+                {pdf && uploadToStorage(pdf, examid);}
+            }else{
+                images.forEach((elm) => {
+                    {elm && uploadToStorage(elm, examid);}
+                })
+            }
+            addUserPostedExam(examid);
+            const examRef =  doc(db, 'exams', examid);
+            await setDoc(examRef, {eid:examid}, { merge: true })
+            alert("アップロード完了！")
+        }catch(err){
+            console.log(err);
+        }
     }
 
-    const selectImages = () => {
+    const uploadToStorage = (elm:File, eid:string) => {
+        const storageref = ref(storage, `contens/${eid}/${elm.name}`);
+        const uploadFile = uploadBytesResumable(storageref, elm, {contentType:elm.type});
+        uploadFile.on('state_changed', (snapshot) => {
+            setLoading(true);
+        },
+        (err) => {
+            console.log(err)
+        },
+        () => {
+            setLoading(false);
+        })
+    }
 
+    const addUserPostedExam = async (examId:string) => {
+        const userRef = doc(db, "users", user.id);
+        try{
+            await updateDoc(userRef, {
+                postedExams: arrayUnion(examId)
+            })
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const selectImages = (event:React.ChangeEvent<HTMLInputElement>) => {
+        if(event.currentTarget.files  === null) return;
+        if(images.length < 4){
+            const imageFile = event.currentTarget.files[0];
+            console.log(imageFile);
+            setImages([...images, imageFile]);
+        }else{
+            alert("画像は最大4枚まで登録できます");
+        }
     }
 
     const selectPDF = (event:React.ChangeEvent<HTMLInputElement>) => {
         if(event.currentTarget.files  === null) return;
-        console.log(event.currentTarget.files)
+        console.log(event.currentTarget.files[0])
+        setPDF(event.currentTarget.files[0]);
     }
 
     return(
@@ -48,7 +125,7 @@ export const PostExam = () => {
                     <label htmlFor="pdf"  className="mr-5" >PDF</label>
                     <input id="none" value="" type="radio" name="post_type" onChange={(e) => setFileType(e.target.value)}/>
                     <label htmlFor="none" className="mr-5">なし</label>
-                    { fielType &&  <label>選択<input type="file" className="hidden" accept={fielType} onChange={fielType === ".pdf" ? selectPDF:selectImages}/></label>}
+                    { fielType &&  <label>選択<input type="file" className="hidden" accept={fielType}  onChange={fielType === ".pdf" ? selectPDF:selectImages}/></label>}
                     <p> - ファイル形式はpdfまたは画像ファイルのどちらかしか選べません</p>
                 </div>
                 <div className="m-5">
