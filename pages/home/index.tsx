@@ -1,11 +1,13 @@
 import SideBar from "@/components/sideBar";
 import contentList from "../../contents.json";
 import { ReactElement } from "react";
-import UserGuard from "@/guards/userGuasd";
+import UserGuard from "@/guards/userGuard";
+import { useRouter } from "next/router";
 
 export const Home = () => {
 
     const examList = contentList.exams;
+    const router = useRouter();
 
     return (
         <>
@@ -34,7 +36,7 @@ export const Home = () => {
                         </div>
                         <div className="my-6 py-2 overflow-y-scroll h-96">
                             {examList.map((exam, i) =>
-                                <div className="m-5 p-2 bg-white border border-gray-300 rounded-xl hover:border-indigo-500" key={i}>
+                                <div className="m-5 p-2 bg-white border border-gray-300 rounded-xl hover:border-indigo-500" onClick={() => router.push({pathname:"/user",query:{user:"akimoto",birth:"4/29"}})} key={i}>
                                     <div className="z-20 flex">
                                         <div className="group relative p-4">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" fill="currentColor" className="w-16 hover:scale-110">
@@ -70,11 +72,11 @@ export const Home = () => {
 
 Home.getLayout = function getLayout(page: ReactElement) {
     return (
-        <UserGuard>
+        // <UserGuard>
             <div className="flex">
                 <SideBar/>{page}
             </div>
-        </UserGuard>
+        // </UserGuard>
     )
 }
 
