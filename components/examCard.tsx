@@ -1,13 +1,47 @@
 import Link from "next/link";
-import RenderIcon from "./renderProfileIcon";
 import { Exam } from "@/types/exam";
+import { useState, ReactElement, ReactNode, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { db } from "@/firebase/firebase";
+import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { User } from "@/types/user";
 
-export const ExamCard = ({exam}:{exam:Exam}) => {
+type Props = {
+    exam:Exam;
+    icon:ReactElement;
+}
 
+export const ExamCard = (props:Props) => {
 
-    const updateBookmarkOfUser = (eid:string) => {
-        console.log(eid);
-        alert("ブックマークに追加しました");
+    const { exam, icon } = props;
+    const user = useAuth() as User;
+    const [ boookmark, setBookmark ] = useState<boolean>(false);
+
+    useEffect(() => {
+        if(user.bookmarks.includes(exam.id as string)){
+            setBookmark(true);
+        }
+    },[])
+
+    const updateBookmarkOfUser = async(eid:string) => {
+        const userRef = doc(db, "users", user.id);
+        try{
+            if(user.bookmarks.includes(eid)){
+                await updateDoc(userRef, {
+                    bookmarks: arrayRemove(eid)
+                })
+                setBookmark(false);
+                alert("ブックマークから削除しました。");
+            }else{
+                await updateDoc(userRef, {
+                    bookmarks: arrayUnion(eid)
+                })
+                setBookmark(true);
+                alert("ブックマークに追加しました。");
+            }
+        }catch(err){
+            console.log(err);
+        }
     }
 
 
@@ -15,7 +49,7 @@ export const ExamCard = ({exam}:{exam:Exam}) => {
         <div className="m-5 p-2 bg-white border border-gray-300 rounded-xl hover:border-indigo-500">
             <div className="z-20 flex">
                 <div className="group relative p-4">
-                    <RenderIcon userId={exam.createUserid} />
+                    {icon}
                 </div>
                 <div className="mr-auto mx-4 flex flex-col gap-y-1">
                     <Link href="/user" className="text-xl font-bold text-gray-800">{exam.title}</Link>
@@ -25,7 +59,7 @@ export const ExamCard = ({exam}:{exam:Exam}) => {
                 </div>
                 <div className="flex flex-col gap-y-3 z-0 top-0 right-0 relative">
                     <button onClick={() => updateBookmarkOfUser(exam.id as string)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:stroke-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 hover:stroke-2 ${boookmark && "fill-indigo-500"}`}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                         </svg>
                     </button>
