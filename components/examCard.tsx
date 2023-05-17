@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Exam } from "@/types/exam";
-import { useState, ReactElement, ReactNode, useEffect } from "react";
+import { useState, ReactElement, ReactNode, useEffect, useRef } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/firebase/firebase";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
@@ -8,42 +8,57 @@ import { User } from "@/types/user";
 
 type Props = {
     exam:Exam;
-    icon:ReactElement;
+    icon:ReactElement | null;
 }
 
 export const ExamCard = (props:Props) => {
 
     const { exam, icon } = props;
+    const eid = exam.id as string;
     const user = useAuth() as User;
-    const [ boookmark, setBookmark ] = useState<boolean>(false);
+    const ref = useRef(true);
+    const [ bookmark, setBookmark ] = useState<boolean>(false);
+    const [ bookmarkList, setBookmarkList ] = useState<Array<string>>([]);
 
     useEffect(() => {
-        if(user.bookmarks.includes(exam.id as string)){
+        if(ref.current){
+            ref.current = false;
+            return;
+        }
+        console.log("bookmarks : ", user.bookmarks);
+        if(user.bookmarks.includes(eid)){
             setBookmark(true);
+            bookmarkList.push(eid);
+            setBookmarkList(bookmarkList);
         }
     },[])
 
     const updateBookmarkOfUser = async(eid:string) => {
         const userRef = doc(db, "users", user.id);
         try{
-            if(user.bookmarks.includes(eid)){
+            if(bookmarkList.includes(eid)){
+                const index = bookmarkList.indexOf(eid);
                 await updateDoc(userRef, {
                     bookmarks: arrayRemove(eid)
                 })
                 setBookmark(false);
-                alert("ブックマークから削除しました。");
+                bookmarkList.splice(index, 1);
+                setBookmarkList(bookmarkList)
+                // alert("ブックマークから削除しました。");
             }else{
                 await updateDoc(userRef, {
                     bookmarks: arrayUnion(eid)
                 })
                 setBookmark(true);
+                bookmarkList.push(eid);
+                setBookmarkList(bookmarkList);
                 alert("ブックマークに追加しました。");
             }
         }catch(err){
             console.log(err);
         }
+        console.log()
     }
-
 
     return (
         <div className="m-5 p-2 bg-white border border-gray-300 rounded-xl hover:border-indigo-500">
@@ -59,7 +74,7 @@ export const ExamCard = (props:Props) => {
                 </div>
                 <div className="flex flex-col gap-y-3 z-0 top-0 right-0 relative">
                     <button onClick={() => updateBookmarkOfUser(exam.id as string)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 hover:stroke-2 ${boookmark && "fill-indigo-500"}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 hover:stroke-2 ${bookmark && "fill-indigo-500"}`}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                         </svg>
                     </button>

@@ -10,5 +10,5 @@ export type User = {
     updatedAt:number;
     updatedTimestamp:FieldValue;
     postedExams:Array<string>;
-    bookmark:Array<string>;
+    bookmarks:Array<string>;
 }

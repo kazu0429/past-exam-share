@@ -10,15 +10,19 @@ type Props = {
 export const UserGuard = ({children}:Props) => {
     
     const user = useAuth();
-    const router = useRouter();
+    let router = useRouter();
 
-    useEffect(() => {
-        console.log(router.isReady)
-        if(!router.isReady) return;
-    },[])
+    // useEffect(() => {
+    //     if (router.isReady) {
+    //         if(user === null){
+    //             router.push("/signin");
+    //             return;
+    //         }
+    //     }
+    // },[router.isReady])
 
     if (user === null && router.pathname !== '/') {
-        router.push('/signin');
+        // router.push('/signin');
         return null;
     }
 

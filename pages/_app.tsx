@@ -1,9 +1,7 @@
-import SideBar from '@/components/sideBar'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { NextPage } from 'next'
 import { ReactElement, ReactNode } from 'react'
-import "../styles/componets.css"
 import { AuthProvider } from '@/context/AuthContext'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

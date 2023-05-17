@@ -2,7 +2,7 @@ import { FieldValue  } from "firebase/firestore";
 
 export type Exam = {
     id?:string;
-    titie:string;
+    title:string;
     faculty:string;
     subjectName:string;
     discription?:string;

@@ -31,7 +31,7 @@ export const AuthProvider = ({children}:{children:ReactNode}) => {
                         updatedAt:Date.now(),
                         updatedTimestamp:serverTimestamp(),
                         postedExams:[],
-                        bookmark:[]
+                        bookmarks:[]
                     };
                     setDoc(ref, appUser).then(() => {
                         setUser(appUser);
