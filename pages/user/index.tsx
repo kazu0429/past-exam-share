@@ -52,7 +52,7 @@ export const UserDisp = () => {
                     <h1 className="my-3 text-xl">プロフィール</h1>
                     <div className="md:w-1/2 my-3 flex">
                         <h3 className="text-lg font-bold">基本情報</h3>
-                        <button className="m-auto" onClick={() => openEditModal(true)}>編集</button>
+                        <button className="right-0 m-auto button" onClick={() => openEditModal(true)}>編集</button>
                     </div>
                     <div className="md:w-1/2 grid grid-cols-2 gap-4 p-3 bg-indigo-100 rounded-md">
                         <span className="text-gray-600 pr-4">ユーザー名</span>{user.name}

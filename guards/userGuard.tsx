@@ -1,7 +1,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { User } from "@/types/user";
 import { useRouter } from "next/router";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 type Props = {
     children:((user:User)=>ReactNode) | ReactNode;
@@ -10,28 +10,22 @@ type Props = {
 export const UserGuard = ({children}:Props) => {
     
     const user = useAuth();
-    let router = useRouter();
+    const router = useRouter();
 
-    // useEffect(() => {
-    //     if (router.isReady) {
-    //         if(user === null){
-    //             router.push("/signin");
-    //             return;
-    //         }
-    //     }
-    // },[router.isReady])
+    const [loading, setLoading] = useState<boolean>(false);
 
-    if (user === null && router.pathname !== '/') {
-        // router.push('/signin');
-        return null;
-    }
+    // if (user === null && router.pathname !== '/') {
+    //     router.push('/');
+    //     return null;
+    // }
+
 
     if (user === null) {
         router.push('/signin');
         return null;
     }
     
-    if (user === undefined || !user) {
+    if (user === undefined) {
         return <p>ローディング中...</p>;
     }
 
