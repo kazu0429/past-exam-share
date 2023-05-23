@@ -41,7 +41,6 @@ export const Signin = () => {
                 <p>アカウントを持っていない方 <Link href="/signup" className="text-indigo-500">Sign Up</Link></p>
                 <p>パスワードを忘れてしまった方 </p>
                 </div>
-                
             </main>
         </div>
         </>

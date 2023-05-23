@@ -7,10 +7,10 @@ import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 // コンテクスト用の型を定義
 type UserContextType = User | null | undefined;
 
-const AuthContext = createContext<UserContextType>(undefined);
+const AuthContext = createContext<UserContextType>(null);
 
 export const AuthProvider = ({children}:{children:ReactNode}) => {
-    const [user, setUser] = useState<UserContextType>(undefined);
+    const [user, setUser] = useState<UserContextType>(null);
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async(user) => {
             if(user){
@@ -30,8 +30,8 @@ export const AuthProvider = ({children}:{children:ReactNode}) => {
                         createdTimestamp:serverTimestamp(),
                         updatedAt:Date.now(),
                         updatedTimestamp:serverTimestamp(),
-                        postExams:[],
-                        bookmark:[]
+                        postedExams:[],
+                        bookmarks:[]
                     };
                     setDoc(ref, appUser).then(() => {
                         setUser(appUser);

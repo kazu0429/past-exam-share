@@ -1,8 +1,8 @@
-import { Timestamp } from "firebase/firestore";
+import { FieldValue  } from "firebase/firestore";
 
 export type Exam = {
-    id:string;
-    titie:string;
+    id?:string;
+    title:string;
     faculty:string;
     subjectName:string;
     discription?:string;
@@ -10,9 +10,9 @@ export type Exam = {
     images?:Array<string>;
     pdf?:string;
     postedAt:number;
-    postedTimestamp:Timestamp;
+    postedTimestamp:FieldValue;
     editedAt:number;
-    editedTimestamp:Timestamp;
+    editedTimestamp:FieldValue;
     createUserid:string;
     editableUserid:Array<string>;
 }
