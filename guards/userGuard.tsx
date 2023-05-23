@@ -14,6 +14,10 @@ export const UserGuard = ({children}:Props) => {
 
     const [loading, setLoading] = useState<boolean>(false);
 
+    /*
+    修正予定箇所 routerがインスタンスでないエラーが発生
+    今後 未認証ユーザによる不正なリダイレクトを防ぐ機能として追加予定
+    */
     // if (user === null && router.pathname !== '/') {
     //     router.push('/');
     //     return null;

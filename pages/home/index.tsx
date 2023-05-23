@@ -74,6 +74,7 @@ export const Home = () => {
 
 Home.getLayout = function getLayout(page: ReactElement) {
     return (
+        // userGuard : 未認証ユーザーのリダイレクトを防ぐ
         // <UserGuard>
             <div className="flex">
                 <SideBar/>{page}
