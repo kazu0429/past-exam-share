@@ -8,7 +8,7 @@ import RenderIcon from "@/components/renderProfileIcon";
 import { Exam } from "@/types/exam";
 import { collection, where, query, getDocs, orderBy} from "firebase/firestore";
 import { db } from "@/firebase/firebase";
-import UserContentsModal from "@/components/UserContentsModal";
+import UserContentsModal from "@/components/userContentsModal";
 
 export const UserDisp = () => {
     
