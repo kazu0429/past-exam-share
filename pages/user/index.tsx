@@ -60,9 +60,11 @@ export const UserDisp = () => {
                     </div>
                     <div className="mt-5">
                         <h2>過去の投稿</h2>
+                        <div className="exam_filed">
                         {myPostedExams.map((exam, i) => (
                             <ExamCard exam={exam} icon={<RenderIcon userId={exam.createUserid} />} key={i} />
                         ))}
+                        </div>
                     </div>
                 </div>
                 <UserContentsModal isModal={editModal} onClose={() => openEditModal(false)} user={user}/>

@@ -19,6 +19,7 @@ export const BookMark = () => {
     const user = useAuth() as User;
     const [examList, setExamList] = useState<Array<Exam>>([]);
     const [orderNum, setOrderNum] = useState<number>(0);
+    const [searchResult, setSearchResult] = useState<Array<Exam>>([]);
     const order:Array<OrderByDirection> = ["desc", "asc"];
 
     useEffect(() => {
@@ -49,9 +50,9 @@ export const BookMark = () => {
     return (
         <>
             <article className="flex-1 bg-indigo-50">
-                <div>
-                    <SearchField/>
-                </div>
+                {/* <div>
+                    <SearchField onData={}/>
+                </div> */}
                 <div>
                     <main className="mt-16">
                         <div className="flex">
@@ -62,7 +63,7 @@ export const BookMark = () => {
                                     <option>昇順</option>
                                 </select>
                         </div>
-                        <div className="my-6 py-2 overflow-y-scroll h-96">
+                        <div className="exam_filed">
                             {examList.length ? examList.map((exam, i) =>
                                 <ExamCard exam={exam} icon={<RenderIcon userId={exam.createUserid} />} key={exam.id} />
                             ) : <div className="m-20 flex flex-col gap-y-4 items-center">
@@ -74,9 +75,6 @@ export const BookMark = () => {
                             }
                         </div>
                     </main>
-                    <div className="m-5">
-                        <button className="px-3 py-1 text-white bg-indigo-500 border border-indigo-500 hover:bg-indigo-800 rounded-xl">次へ</button>
-                    </div>
                 </div>
             </article>
         </>
