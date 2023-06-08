@@ -23,6 +23,9 @@ module.exports = {
       },
       maxHeight: {
         '128': '50vh',
+      },
+      width:{
+        '128':"30vh",
       }
     },
   },
