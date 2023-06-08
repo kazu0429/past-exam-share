@@ -6,6 +6,7 @@ import { User } from "@/types/user";
 import { doc, addDoc, setDoc, updateDoc, collection, serverTimestamp, arrayUnion} from "firebase/firestore";
 import { db, storage } from "@/firebase/firebase";
 import { ref, uploadBytesResumable } from "firebase/storage";
+import { MouseEvent } from "react";
 
 export const PostExam = () => {
 
@@ -103,10 +104,19 @@ export const PostExam = () => {
         }
     }
 
+
     const selectPDF = (event:React.ChangeEvent<HTMLInputElement>) => {
         if(event.currentTarget.files  === null) return;
         console.log(event.currentTarget.files[0])
         setPDF(event.currentTarget.files[0]);
+    }
+
+    const removefromSelectImages = (e:MouseEvent<HTMLButtonElement>, title:string) =>{
+        e.preventDefault();
+        const tmpImageArray = images.filter((url) => {
+            return url.name != title
+        })
+        setImages(tmpImageArray);
     }
 
     return(
@@ -137,7 +147,13 @@ export const PostExam = () => {
                 <div className="m-5">
                     {fielType === ".pdf" ? 
                         <p>{pdf?.name}</p>:images.map((image, i) => (
-                            <p key={i}>{image.name}</p>
+                            <p key={i} className="items-center flex ml-5 gap-x-3 ">{image.name}
+                                <button className="mx-2" onClick={(e) => removefromSelectImages(e, image.name)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </button>
+                            </p>
                         ))
                     }
                 </div>
