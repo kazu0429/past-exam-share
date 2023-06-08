@@ -20,7 +20,10 @@ module.exports = {
     extend: {
       container: {
         center: true,
-    },
+      },
+      maxHeight: {
+        '128': '50vh',
+      }
     },
   },
   variants: {
