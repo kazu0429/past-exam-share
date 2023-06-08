@@ -1,38 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Kadai shushu
+鹿児島大学に在学する学生限定の授業情報共有サイトです。<br>
+現在履修している科目や履修していた科目についての情報を共有できます。<br>
+履修登録や講義期間の悩みを少しでも解決したいと思い、開発に至りました。<br>
 
-## Getting Started
+Webブラウザからの使用を想定しています。
+<img width="1260" alt="image" src="https://github.com/kazu0429/past-exam-share/assets/75778286/4ba8a3ef-0b1f-44d5-9df3-2cfd7162e49e">
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## URL
+まだデプロイはしていません。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 使用技術
+- Firebase
+  - Authentication
+  - Hosting
+  - Cloud Firestore
+  - Storage
+- Next.js 13.3.0
+- React.js 18.2.0
+- TypeScript
+- Tailwind
+- Github Actions（デプロイ後に実装予定）
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 機能一覧
+- サインアップ機能、サインイン機能（by email and pw）
+- プロフィール情報変更
+- 投稿機能
+  - 授業情報記載
+  - 画像orPDF投稿
+- ブックマーク機能
+-  過去の自分の投稿閲覧
+- 科目名検索
