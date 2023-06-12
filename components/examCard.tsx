@@ -10,22 +10,24 @@ type Props = {
     exam:Exam;
     icon:ReactElement | null;
     canRemove:boolean;
+    bookmarks:string[]|null;
 }
 
 export const ExamCard = (props:Props) => {
 
-    const { exam, icon ,canRemove } = props;
+    const { exam, icon ,canRemove, bookmarks } = props;
     const eid = exam.id as string;
     const user = useAuth() as User;
     const ref = useRef(true);
     const [ bookmark, setBookmark ] = useState<boolean>(false);
 
     useEffect(() => {
-        if(ref.current || user === null){
+        if(ref.current){
             ref.current = false;
             return;
         }
-        if(user.bookmarks.includes(eid)){
+        console.log(bookmarks)
+        if(bookmarks?.includes(eid)){
             setBookmark(true);
         }
     },[])
