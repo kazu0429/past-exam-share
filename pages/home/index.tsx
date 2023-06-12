@@ -21,7 +21,6 @@ export const Home = () => {
     const order:Array<OrderByDirection> = ["desc", "asc"];
 
     const user = useAuth();
-    console.log(user);
 
     let exams:any = [];
     useEffect(() => {
@@ -29,24 +28,24 @@ export const Home = () => {
             ref.current = false;
             return;
         }
-        setSearchResult([]);
         const docRef = collection(db, "exams");
         const q = query(docRef, orderBy("postedAt", order[orderNum]));
         getDocs(q).then((snapshot) => {
             snapshot.docs.forEach((doc) => {
-                console.log(doc.data());
+                // console.log(doc.data());
                 exams.push({ id: doc.id, ...doc.data() })
             })
         setExamList(exams);
         }).catch((err) => (
             console.log(err)
         ))
-    },[orderNum])
+    },[orderNum, searchResult])
 
     const handleData = (examList:Array<Exam>):void =>{
         if(!!examList){
             setSearchResult(examList);
         }else{
+            setSearchResult([]);
             console.log("該当する科目はありません");
         }
     }
@@ -69,10 +68,10 @@ export const Home = () => {
                         </div>
                         <div className="exam_filed">
                             {searchResult.length ? (searchResult.map((exam, i) =>
-                                <ExamCard exam={exam} icon={<RenderIcon userId={exam.createUserid} />} key={exam.id} />
+                                <ExamCard exam={exam} icon={<RenderIcon userId={exam.createUserid} />} key={exam.id} canRemove={false} />
                             )):
                             (examList.map((exam, i) =>
-                                <ExamCard exam={exam} icon={<RenderIcon userId={exam.createUserid} />} key={exam.id} />
+                                <ExamCard exam={exam} icon={<RenderIcon userId={exam.createUserid} />} key={exam.id} canRemove={false}/>
                             ))}
                         </div>
                     </main>
