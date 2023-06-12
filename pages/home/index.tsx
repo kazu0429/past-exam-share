@@ -1,7 +1,7 @@
 import SideBar from "@/components/sideBar";
 import { ReactElement, useEffect, useState } from "react";
-import UserGuard from "@/guards/userGuard";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+// import UserGuard from "@/guards/userGuard";
+import { collection, getDocs, orderBy, query, doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useRef } from "react";
 import { Exam } from "@/types/exam";
@@ -10,6 +10,7 @@ import SearchField from "@/components/searchField";
 import { OrderByDirection } from "firebase/firestore";
 import RenderIcon from "@/components/renderProfileIcon";
 import { useAuth } from "@/context/AuthContext";
+import { User } from "@/types/user";
 
 
 export const Home = () => {
@@ -18,27 +19,37 @@ export const Home = () => {
     const [ examList, setExamList ] = useState<Array<Exam>>([]);
     const [orderNum, setOrderNum] = useState<number>(0);
     const [searchResult, setSearchResult] = useState<Array<Exam>>([]);
+    const [bookmarkList, setBookMarkList] = useState<string[]>([]);
     const order:Array<OrderByDirection> = ["desc", "asc"];
 
-    const user = useAuth();
+    const user = useAuth() as User;
 
-    let exams:any = [];
+    
     useEffect(() => {
         if (ref.current) {
             ref.current = false;
             return;
         }
-        const docRef = collection(db, "exams");
-        const q = query(docRef, orderBy("postedAt", order[orderNum]));
-        getDocs(q).then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-                // console.log(doc.data());
-                exams.push({ id: doc.id, ...doc.data() })
-            })
-        setExamList(exams);
-        }).catch((err) => (
-            console.log(err)
-        ))
+        let exams:any = [];
+        (async () => {
+            try {
+                const bookRef = doc(db, "users", user.id);
+                const snapshot = await getDoc(bookRef);
+                const bookmarks = snapshot.get("bookmarks");
+                setBookMarkList(bookmarks);
+
+                const docRef = collection(db, "exams");
+                const q = query(docRef, orderBy("postedAt", order[orderNum]));
+                const examlist = await getDocs(q)
+                examlist.docs.forEach((doc) => {
+                        // console.log(doc.data());
+                        exams.push({ id: doc.id, ...doc.data() })
+                })
+                setExamList(exams);
+            }catch (err) {
+                console.log(err)
+            }
+        })()
     },[orderNum, searchResult])
 
     const handleData = (examList:Array<Exam>):void =>{
@@ -68,10 +79,10 @@ export const Home = () => {
                         </div>
                         <div className="exam_filed">
                             {searchResult.length ? (searchResult.map((exam, i) =>
-                                <ExamCard exam={exam} icon={<RenderIcon userId={exam.createUserid} />} key={exam.id} canRemove={false} />
+                                <ExamCard exam={exam} icon={<RenderIcon userid={exam.createUserid} />} key={exam.id} canRemove={false} bookmarks={bookmarkList}/>
                             )):
                             (examList.map((exam, i) =>
-                                <ExamCard exam={exam} icon={<RenderIcon userId={exam.createUserid} />} key={exam.id} canRemove={false}/>
+                                <ExamCard exam={exam} icon={<RenderIcon userid={exam.createUserid} />} key={exam.id} canRemove={false} bookmarks={bookmarkList}/>
                             ))}
                         </div>
                     </main>
