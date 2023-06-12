@@ -61,7 +61,7 @@ export const PostExam = () => {
             }
             addUserPostedExam(examid);
             const examRef =  doc(db, 'exams', examid);
-            await setDoc(examRef, {eid:examid}, { merge: true })
+            await setDoc(examRef, {id:examid}, { merge: true })
             alert("アップロード完了！")
         }catch(err){
             console.log(err);
@@ -97,7 +97,7 @@ export const PostExam = () => {
         if(event.currentTarget.files  === null) return;
         if(images.length < 4){
             const imageFile = event.currentTarget.files[0];
-            console.log(imageFile);
+            // console.log(imageFile);
             setImages([...images, imageFile]);
         }else{
             alert("画像は最大4枚まで登録できます");
@@ -107,7 +107,7 @@ export const PostExam = () => {
 
     const selectPDF = (event:React.ChangeEvent<HTMLInputElement>) => {
         if(event.currentTarget.files  === null) return;
-        console.log(event.currentTarget.files[0])
+        // console.log(event.currentTarget.files[0])
         setPDF(event.currentTarget.files[0]);
     }
 
