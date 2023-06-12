@@ -61,9 +61,9 @@ const RemoveExamModal = ({isModal, onClose ,exam}:Props) => {
         <>
         <div className="fixed inset-0 top-0 left-0 right-0 z-50 px-4 bg-opacity-25 bg-zinc-600 flex justify-center items-center">
             <div className="p-4 relative w-1/2  md:h-auto">
-                <div className="p-5 relative bg-indigo-100 rounded-lg shadow ">
-                    <p className="rounded-lg border border-gray-500 bg-indigo-50 p-2"><span className="text-xl font-bold text-gray-800"> {exam.title} </span>を本当に削除しますか？</p>
-                    <div className="mt-4 mb-2 flex flex-row justify-between">
+                <div className="p-6 relative bg-indigo-100 rounded-lg shadow ">
+                    <p className="rounded-lg border border-gray-500 bg-white p-2"><span className="text-xl font-bold text-gray-800"> {exam.title} </span>を本当に削除しますか？</p>
+                    <div className="mt-4 flex flex-row justify-between">
                             <button type="submit" className="button" onClick={removeExamfromfirebase}>削除</button>
                             <button className="button" onClick={onClose}>閉じる</button>
                     </div>
