@@ -31,13 +31,14 @@ export const SearchField = ({onData}:Props) => {
                 console.log(result);
                 if (!result.length){
                     alert("該当する科目は見つかりませんでした。");
+                    onData([]);
                 }
+                return ;
             }catch(err){
                 console.log(err);
-                return [];
             }
         }
-        return [];
+        onData([]);
     }
 
     return (
