@@ -1,19 +1,26 @@
 import { storage } from "@/firebase/firebase";
+import { FirebaseError } from "firebase/app";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useState } from "react";
 
-export const RenderIcon = (props:{userId:string}) => {
+export const RenderIcon = (props:{userid:string}) => {
     
     const [ icon, setIcon ] = useState<string>("");
     const [ isIcon, setIsIcon ] = useState<boolean>(false);
 
-    const uid = props.userId;
+    const uid = props.userid;
     const iconRef = ref(storage, `${process.env.NEXT_PUBLIC_FIREBASE_IMAGE_PATH}/profileicons/${uid}/icon.png`);
 
     getDownloadURL(iconRef).then((iconURL) => {
         setIcon(iconURL);
         setIsIcon(true);
-    }).catch((err) => console.log(err));
+    }).catch(
+        (err) => {
+            if(!(err instanceof FirebaseError)){
+                console.log(err)
+            }
+        }
+    );
 
     return (
         <div className="hover:scale-110 drop-shadow-md">

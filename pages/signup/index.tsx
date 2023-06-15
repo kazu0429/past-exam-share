@@ -4,23 +4,23 @@ import { auth } from "@/firebase/firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { useRouter } from "next/router";
-import { useAuth } from "@/context/AuthContext";
 
 export const Signup = () => {
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirmationPassword, setComfirmatinPassword] = useState<string>("");
-    const [isCorrect, setIsCorrect] = useState<boolean>(false);
+    const [isCorrect, setIsCorrect] = useState<boolean>(true);
     const [signup, setSignup] = useState<boolean>(false);
     const [sendEmail, setSendEmail] = useState<boolean>();
     const router = useRouter();
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setSignup(true);
-        setIsCorrect(false);
-        // if(!availableEmail(email)) return; メール送信のため、一時的にコメント
+        if(!availableEmail(email)){
+            setSignup(true);
+            return;
+        }
         if(password === confirmationPassword && password.length >= 8){
             setIsCorrect(true);
             try{
@@ -42,6 +42,8 @@ export const Signup = () => {
                     }
                 }
             }
+        }else{
+            setIsCorrect(false);
         }
     }
 
@@ -57,28 +59,46 @@ export const Signup = () => {
     return(
         <>
         <div className="h-screen w-screen flex flex-col justify-center items-center">
+            <div className="text-2xl">
+                Kadai ShuShu
+            </div>
             <main className="h-3/5 lg:w-1/4 md:w-1/3 sm:w-2/5 m-10 px-5 py-3 rounded-2xl relative border border-gray-200">
-                <h1 className="text-2xl mb-4 flex justify-center relative">Sign Up</h1>
+                <h1 className="text-2xl mb-4 flex justify-center relative">Sign Up!</h1>
                 <div>
                     <form className="flex flex-col gap-y-6 px-5 py-3" onSubmit={handleSubmit}>
-                        <span className="relative group">
-                            <span className="tooltip">鹿児島大学のメールアドレスを入力してください</span>
-                            <input type="text" placeholder="Email" className="input_field" onChange={(e) => setEmail(e.target.value)} required/>
-                        </span>
+                        <div className="relative group">
+                            <span className={`tooltip`}>鹿児島大学のEmailで登録してください</span>
+                            <input type="text" placeholder="Email" className={`input_field ${signup && "border-red-300"}`} onChange={(e) => setEmail(e.target.value)}  required/>
+                        </div>
                         <span className="relative group">
                             <span className="tooltip">英数字8文字以上</span>
-                            <input type="password" placeholder="Password" className="input_field" onChange={(e) => setPassword(e.target.value)} required/>
+                            <input type="password" placeholder="Password" className={`input_field ${!isCorrect && "border-red-300"}`} onChange={(e) => setPassword(e.target.value)} required/>
                         </span>
-                        <input type="password" placeholder="Confirmation Password" className="input_field" onChange={(e) => setComfirmatinPassword(e.target.value)} required/>
+                        <input type="password" placeholder="Confirmation Password" className={`input_field ${!isCorrect && "border-red-300"}`} onChange={(e) => setComfirmatinPassword(e.target.value)} required/>
                         <button type="submit" className="px-4 py-2 text-white bg-indigo-500 rounded-lg border border-indigo-600 hover:bg-indigo-400 ">Sign up</button>
-                        {signup && !isCorrect &&<p>鹿児島大学のメールアドレスではありません</p>}
                     </form><hr/>
                 </div>
                 <div className="mt-6">
-                <p>アカウントを持っている方 <Link href="/signin" className="text-indigo-500">Sign In</Link></p>
+                <p className="mt-5">アカウントを持っている方 <Link href="/signin" className="text-indigo-500">Sign In</Link></p>
                 </div>
-                {sendEmail && <p>メールを送信しました。</p>}
+                {/* メール認証実装時に使用予定 */}
+                {/* {sendEmail && <p>メールを送信しました。</p>}  */}
             </main>
+            <div className="flex flex-row gap-x-1 items-center group relative">
+                <span className="w-[40vh] tooltip">
+                    このサイトは鹿大生限定の授業情報共有サイトです✨<br/>
+                    履修登録前や過去の授業内容について知りたい事があるときに、参考にできるものが少しでもあればと思い開発に至りました。<br/>
+                    投稿は有志となりますので、あなたの経験や知識を共有していただけると幸いです。<br/>
+                    注意事項：当サービスでは不適切な内容や誤情報を多く含んだ投稿はお控え頂くようお願い致します。<br/>
+                    また、鹿大生以外の方の利用も原則禁止となります。
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#6366f1" className="w-6 h-6 border-gray-600">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+                <div className="text-sm text-gray-600 text-indigo-500">
+                    このサイトについて
+                </div>
+            </div>
         </div>
         </>
     )

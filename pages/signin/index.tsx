@@ -28,7 +28,12 @@ export const Signin = () => {
     return(
         <>
         <div className="h-screen w-screen flex flex-col justify-center items-center">
-            <main className="h-96 lg:w-1/4 md:w-1/3 sm:w-2/5 m-10 px-5 py-3 rounded-2xl relative border border-gray-200">
+            <div className="flex flex-row gap-x-2 items-center">
+                <div className="text-2xl">
+                    Kadai ShuShu
+                </div>
+            </div>
+            <main className="h-1/2 lg:w-1/4 md:w-1/3 sm:w-2/5 m-10 px-5 py-3 rounded-2xl relative border border-gray-200">
                 <h1 className="text-2xl mb-4 flex justify-center relative">Sign In!</h1>
                 <div>
                     <form className="flex flex-col gap-y-6 px-5 py-3" onSubmit={handleSubmit}>
@@ -39,7 +44,6 @@ export const Signin = () => {
                 </div>
                 <div className="mt-6">
                 <p>アカウントを持っていない方 <Link href="/signup" className="text-indigo-500">Sign Up</Link></p>
-                <p>パスワードを忘れてしまった方 </p>
                 </div>
             </main>
         </div>
