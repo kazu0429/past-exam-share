@@ -16,7 +16,7 @@ type Props = {
 export const ExamCard = (props:Props) => {
 
     const { exam, icon ,canRemove, bookmarks } = props;
-    const eid = exam.id as string;
+    const eid = exam?.id as string;
     const user = useAuth() as User;
     const ref = useRef(true);
     const [ bookmark, setBookmark ] = useState<boolean>(false);
@@ -60,9 +60,8 @@ export const ExamCard = (props:Props) => {
                     {icon}
                 </div>
                 <div className="mr-auto mx-4 flex flex-col gap-y-1">
-                    <Link href="/user" className="text-xl font-bold text-gray-800">{exam.title}</Link>
+                    <Link as={`./details/${eid}`} href={{pathname:`./details/[id]`,query:{id:eid}}} className="text-xl font-bold text-gray-800">{exam.title}</Link>
                     <p>科目名:{exam.subjectName}</p>
-                    <p></p>
                     <p>投稿日 : {(new Date(exam.postedAt)).toLocaleString()}</p>
                 </div>
                 <div className="flex flex-col gap-y-3 z-0 top-0 right-0 relative">
