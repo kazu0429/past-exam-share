@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# firebase
+pastexamsdb-firebase-adminsdk-i7yqa-1f668da9ed.json
