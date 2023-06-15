@@ -1,6 +1,6 @@
 import SideBar from "@/components/sideBar";
 import { ReactElement, useEffect, useState } from "react";
-// import UserGuard from "@/guards/userGuard";
+import UserGuard from "@/guards/userGuard";
 import { collection, getDocs, orderBy, query, doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useRef } from "react";
@@ -50,7 +50,7 @@ export const Home = () => {
                 console.log(err)
             }
         })()
-    },[orderNum, searchResult])
+    },[orderNum, searchResult, user])
 
     const handleData = (examList:Array<Exam>):void =>{
         if(!!examList){
