@@ -15,4 +15,6 @@ export type Exam = {
     editedTimestamp:FieldValue;
     createUserid:string;
     editableUserid:Array<string>;
+    url?:string;
+    booknum:number;
 }

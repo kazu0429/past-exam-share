@@ -46,6 +46,7 @@ export const PostExam = () => {
             editedTimestamp: serverTimestamp(),
             createUserid: user.id,
             editableUserid: [user.id],
+            booknum:0,
         } 
 
         try{

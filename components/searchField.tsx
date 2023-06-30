@@ -21,19 +21,16 @@ export const SearchField = ({onData}:Props) => {
             try{
                 const documentRef = collection(db, "exams");
                 const p = query(documentRef, where('subjectName', "==", value));
-                console.log(p);
                 const snapshot = await getDocs(p);
                 snapshot.forEach((doc) => {
-                        console.log("search", doc.data());
                         result.push({ id: doc.id, ...doc.data() });
                 })
                 onData(result);
-                console.log(result);
                 if (!result.length){
                     alert("該当する科目は見つかりませんでした。");
                     onData([]);
                 }
-                return ;
+                return;
             }catch(err){
                 console.log(err);
             }
@@ -42,7 +39,7 @@ export const SearchField = ({onData}:Props) => {
     }
 
     return (
-        <form onSubmit={(e) => searchDocument(searchWord, e)} >
+        <form onSubmit={(e) => searchDocument(searchWord, e)}>
             <div className="relative mx-5 my-10">
                 <input className="text-left block p-3 w-full z-20 rounded-2xl" placeholder="Search subjectname..." onChange={(e) => setSearchWord(e.target.value)}/>
                 <button type="submit" className="absolute top-0 right-0 p-3 pl-4 text-white bg-indigo-500 border border-indigo-500 hover:bg-indigo-800 rounded-r-2xl ">

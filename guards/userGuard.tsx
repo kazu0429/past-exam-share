@@ -11,6 +11,7 @@ export const UserGuard = ({children}:Props) => {
     
     const user = useAuth();
     const router = useRouter();
+    const isReady = router.isReady;
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -18,18 +19,25 @@ export const UserGuard = ({children}:Props) => {
     修正予定箇所 routerがインスタンスでないエラーが発生
     今後 未認証ユーザによる不正なリダイレクトを防ぐ機能として追加予定
     */
-    // if (user === null && router.pathname !== '/') {
-    //     router.push('/');
-    //     return null;
-    // }
+    useEffect(() =>{
+        if(isReady){
+            setLoading(true)
+        }
+    },[isReady])
+
+    if (user === null && router.pathname !== '/signin') {
+        console.log("login?");
+        router.push('/');
+        return null;
+    }
 
 
-    if (user === null) {
+    if(user === null){
         router.push('/signin');
         return null;
     }
-    
-    if (user === undefined) {
+
+    if (!loading || !user) {
         return <p>ローディング中...</p>;
     }
 
