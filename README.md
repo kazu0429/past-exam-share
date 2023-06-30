@@ -6,14 +6,16 @@
 Webブラウザからの使用を想定しています。下に幾つかの画面ページにイメージを載せます。
 |画面ページ|画面イメージ|
 |:-:|:-:|
-|サインアップ|<img width="662" alt="image" src="https://github.com/kazu0429/past-exam-share/assets/75778286/619417f4-a59d-44a8-b499-a7423004a485">|
-|ホーム|<img width="1260" alt="image" src="https://github.com/kazu0429/past-exam-share/assets/75778286/4ba8a3ef-0b1f-44d5-9df3-2cfd7162e49e">|
-|マイページ|<img width="1125" alt="image" src="https://github.com/kazu0429/past-exam-share/assets/75778286/cfc84b5d-29ff-4766-aced-3d7455fee8d7">|
+|サインアップ|<img width="300" alt="image" src="https://github.com/kazu0429/past-exam-share/assets/75778286/619417f4-a59d-44a8-b499-a7423004a485">|
+|ホーム|<img width="500" alt="image" src="https://github.com/kazu0429/past-exam-share/assets/75778286/4ba8a3ef-0b1f-44d5-9df3-2cfd7162e49e">|
+|マイページ|<img width="500" alt="image" src="https://github.com/kazu0429/past-exam-share/assets/75778286/cfc84b5d-29ff-4766-aced-3d7455fee8d7">|
+|詳細ページ|<img width="500" alt="image" src="https://github.com/kazu0429/past-exam-share/assets/75778286/29a98072-2f7a-4571-9f60-171d63bde576">|
 
 
 
 ## URL
-まだデプロイはしていません。
+改修のためデプロイを無効。
+Next.js 13.4に対応するために、別リポジトリにて改修中。
 
 ## 使用技術
 - Firebase
@@ -33,6 +35,9 @@ Webブラウザからの使用を想定しています。下に幾つかの画�
 - 投稿機能
   - 授業情報記載
   - 画像orPDF投稿
+- 投稿詳細画面
+  - 詳細の表示
+  - 投稿ファイルのプレビューとダウンロード
 - ブックマーク機能
 -  過去の自分の投稿閲覧
   - 自分の投稿削除
