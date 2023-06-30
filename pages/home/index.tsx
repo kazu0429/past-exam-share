@@ -66,7 +66,7 @@ export const Home = (props:InferGetServerSidePropsType<typeof getServerSideProps
                         <div className="flex">
                             <p className="ml-5">投稿一覧</p>
                             <p className="ml-auto mr-4">Sort</p>
-                                <select className="mr-5 px-5 rounded-xl border border-gray-500" onChange={(e) => setOrderBy(parseInt(e.target.value))}>
+                                <select className="mr-5 rounded-xl border border-gray-500 px-5" onChange={(e) => setOrderBy(parseInt(e.target.value))}>
                                     <option value={1}>降順</option>
                                     <option value={0}>昇順</option>
                                 </select>
@@ -90,7 +90,7 @@ Home.getLayout = function getLayout(page: ReactElement) {
     return (
         // userGuard : 未認証ユーザーのリダイレクトを防ぐ
         // <UserGuard>
-        <div className="flex w-full h-full">
+        <div className="flex h-full w-full">
             <SideBar />
             {page}
         </div>

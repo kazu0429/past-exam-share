@@ -117,25 +117,25 @@ export const Details = ({postData}:InferGetServerSidePropsType<typeof getServerS
     return (
         <>
             <article className="flex-1 bg-indigo-50">
-                <div className="pl-4 m-4 flex flex-col gap-y-4">
+                <div className="m-4 flex flex-col gap-y-4 pl-4">
                     <div className="flex flex-row ">
-                        <div className="ml-6 w-[150px] border border-gray-400 flex-wrap">
-                            <img src={icon} className="w-[150px] ms:w-[100px]" />
+                        <div className="ml-6 w-[150px] flex-wrap border border-gray-400">
+                            <img src={icon} className="ms:w-[100px] w-[150px]" />
                         </div>
                     </div>
                     <div className="ml-6">
                         詳細画面
                     </div>
-                    <div className={`flex md:flex-row gap-x-4 sm:flex-col flex-col gap-y-4 justify-around`}>
-                        <div className="md:w-2/5 sm:w-full flex flex-col gap-y-6 rounded-lg border border-indigo-800 bg-indigo-100 p-3">
+                    <div className={`flex flex-col justify-around gap-4 sm:flex-col md:flex-row`}>
+                        <div className="flex flex-col gap-y-6 rounded-lg border border-indigo-800 bg-indigo-100 p-3 sm:w-full md:w-2/5">
                             <div className="flex flex-row gap-x-4">
-                            <div className="w-full text-xl bg-white rounded-xl border border-gray-500 p-2 ">
+                            <div className="w-full rounded-xl border border-gray-500 bg-white p-2 text-xl ">
                                 {title}
                             </div>
-                                <div className="m-auto relative group ">
-                                    <span className="tooltip whitespace-nowrap right-0 before:left-3/4">投稿を保存</span>
+                                <div className="group relative m-auto ">
+                                    <span className="tooltip right-0 whitespace-nowrap before:left-3/4">投稿を保存</span>
                                     <button onClick={updateBookmarkOfUser}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 hover:stroke-2 ${bookmark && "fill-indigo-500"}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`h-6 w-6 hover:stroke-2 ${bookmark && "fill-indigo-500"}`}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                                         </svg>
                                     </button>
@@ -145,16 +145,16 @@ export const Details = ({postData}:InferGetServerSidePropsType<typeof getServerS
                                 <p>{faculty}</p>
                                 <p>{subjectName}</p>
                             </div>
-                            <div className="break-words whitespace-pre-wrap h-2/3 bg-white rounded border border-gray-500 p-2">
+                            <div className="h-2/3 whitespace-pre-wrap break-words rounded border border-gray-500 bg-white p-2">
                                 {discription}
                             </div>
                             
-                            <div className="flex flex-row justify-between items-center">
+                            <div className="flex flex-row items-center justify-between">
                                 <div>
                                     投稿日 : {(new Date(postedAt)).toLocaleString()}
                                 </div>
                                 <div>
-                                    <div className="relative group">
+                                    <div className="group relative">
                                         <span className="tooltip">資料を保存</span>
                                         <button className="button" onClick={(e) => downloadFile(e)}>
                                             ダウンロード
@@ -168,7 +168,7 @@ export const Details = ({postData}:InferGetServerSidePropsType<typeof getServerS
                                 <PDFViewer fileType={fileType} pdf={pdf} id={id}/>
                             </div>
                         ):(
-                            <div className="py-3 border border-indigo-800 rounded-xl bg-indigo-100">
+                            <div className="rounded-xl border border-indigo-800 bg-indigo-100 py-3">
                             <Splide
                                 aria-label="投稿画像一覧"
                                 options={{
@@ -189,7 +189,7 @@ export const Details = ({postData}:InferGetServerSidePropsType<typeof getServerS
                             >
                                 {urls.map((url: string, i:number) => (
                                         <SplideSlide key={i} className="inline">
-                                            <img className="w-full h-full block object-cover" src={url}/>
+                                            <img className="block h-full w-full object-cover" src={url}/>
                                         </SplideSlide>
                                 ))}
                             </Splide>
@@ -231,7 +231,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 Details.getLayout = function getLayout(page: ReactElement) {
     return (
         // userGuard : 未認証ユーザーのリダイレクトを防ぐ
-        <div className="flex w-full h-full">
+        <div className="flex h-full w-full">
             <SideBar />
             {page}
         </div>
