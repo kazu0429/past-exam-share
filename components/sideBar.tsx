@@ -26,21 +26,21 @@ export const SideBar = () => {
 
     return(
         <>
-            <div className={`${open ? "w-48" : "w-20"} h-screen p-5 pt-8 relative duration-300`}>
+            <div className={`${open ? "w-48" : "w-20"} relative h-screen p-5 pt-8 duration-300`}>
                 <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`p-2 absolute cursor-pointer -right-4 rounded-full top-9 w-9 bg-white border-2 border-indigo-500 hover:border-indigo-800 ${!open && "rotate-180"} `} onClick={() => setOpen(!open)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`absolute -right-4 top-9 w-9 cursor-pointer rounded-full border-2 border-indigo-500 bg-white p-2 hover:border-indigo-800 ${!open && "rotate-180"} `} onClick={() => setOpen(!open)}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
                     </svg>
                 </div>
                 <div className="">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute cursor-pointer w-7 duration-500" onClick={() => router.push("/home")}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute w-7 cursor-pointer duration-500" onClick={() => router.push("/home")}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
                     </svg>
-                    <h1 className={`ml-12 text-black origin-left font-medium text-xl duration-200  ${!open && "scale-0"}`}>Kadai</h1>
+                    <h1 className={`ml-12 origin-left text-xl font-medium text-black duration-200  ${!open && "scale-0"}`}>Kadai</h1>
                 </div>
                 <ul className="pt-6">
                     {Menus.map((menu, i) => (
-                        <li className={`${router.pathname === `${menu.url}` ? "text-indigo-600" : "text-gray-600"} flex rounded-md p-2 my-4 cursor-pointer text-md items-center gap-x-4 hover:text-indigo-600`} key={i}>
+                        <li className={`${router.pathname === `${menu.url}` ? "text-indigo-600" : "text-gray-600"} my-4 flex cursor-pointer items-center gap-x-4 rounded-md p-2 hover:text-indigo-600`} key={i}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6" onClick={() => router.push(menu.url)}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d={`${menu.svg}`}/>
                             </svg>
@@ -48,11 +48,11 @@ export const SideBar = () => {
                         </li>
                     ))}
                     <hr />
-                    <li className={`flex rounded-md p-2 mt-auto cursor-pointer text-md items-center gap-x-4 hover:text-indigo-600`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <li className={`mt-auto flex cursor-pointer items-center gap-x-4 rounded-md p-2 hover:text-indigo-600`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                         </svg>
-                        <span className={`absolut ${!open && "hidden"} origin-left duration-200`} onClick={logout}>Logout</span>
+                        <span className={`${!open && "hidden"} origin-left duration-200`} onClick={logout}>Logout</span>
                     </li>
                 </ul>
             </div>

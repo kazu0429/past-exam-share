@@ -51,7 +51,7 @@ export const pdfViewer = (props:{fileType:string, pdf:string, id:string}) => {
             //         </div>
             //     </Document>
             // </div>
-                <iframe src={fileURL} className='w-full h-full xl:w-[60vh] sm:h-[50vh]'/>
+                <iframe src={fileURL} className='h-full w-full sm:h-[50vh] xl:w-[60vh]'/>
             }
         </>
     )
