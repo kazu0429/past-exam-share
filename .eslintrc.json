@@ -2,5 +2,6 @@
   "extends": [ 
     "next/core-web-vitals",
     "plugin:tailwindcss/recommended"
-  ]
+  ],
+  "@next/next/no-page-custom-font": "off"
 }
